@@ -20,6 +20,14 @@ yarn dev
 
 Open the browser on http://localhost:3000/
 
+#### Running the app with mocks
+
+Open the .env file and uncomment
+
+```bash
+VITE_MODE=mock
+```
+
 ### What to expect
 
 The application is a weather dashboard that allows users to search for the current weather of a city. The dashboard should display the current temperature, weather condition, and a brief forecast for the next few hours.
