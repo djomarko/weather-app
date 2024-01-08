@@ -1,6 +1,6 @@
-import { defineConfig } from "vite";
-import { resolve } from "path";
 import react from "@vitejs/plugin-react";
+import { resolve } from "path";
+import { defineConfig } from "vite";
 
 export default defineConfig((configEnv) => {
   const isDevelopment = configEnv.mode === "development";
@@ -19,6 +19,7 @@ export default defineConfig((configEnv) => {
       alias: {
         app: resolve(__dirname, "src", "app"),
         components: resolve(__dirname, "src", "components"),
+        state: resolve(__dirname, "src", "state"),
         hooks: resolve(__dirname, "src", "hooks"),
       },
     },
