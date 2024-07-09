@@ -13,8 +13,6 @@ const WeatherCard = ({
   isImperial,
   size = "small",
 }: WeatherCardProps) => {
-  temp = isImperial ? Math.round((temp * 9 * 10) / 5) / 10 + 32 : temp;
-
   return (
     <div
       className={`card w-${

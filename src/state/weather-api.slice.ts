@@ -1,22 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-interface TimeData {
-  datetime: string;
-  temp: number;
-  conditions: string;
-  icon: string;
-}
-
-interface WeatherResponse {
-  resolvedAddress: "string";
-  timezone: "string";
-  days: Array<
-    TimeData & {
-      description: string;
-      hours: TimeData[];
-    }
-  >;
-}
+import { WeatherResponse } from "./data.models";
 
 export const weatherApiSlice = createApi({
   reducerPath: "api",

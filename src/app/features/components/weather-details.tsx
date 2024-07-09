@@ -1,31 +1,32 @@
 import WeatherCard from "components/weather-card";
 import { useAppSelector } from "state/store";
-import { useGetWeatherByCityQuery } from "state/weather-api.slice";
+import { selectWeatherDetails } from "../state/selector.hooks";
 
-interface WeatherDetailsProps {
-  city: string;
-}
+const WeatherDetails = () => {
+  const weatherDetails = useAppSelector((state) => selectWeatherDetails(state));
 
-const WeatherDetails = ({ city }: WeatherDetailsProps) => {
-  const { data, isLoading, isError } = useGetWeatherByCityQuery(city);
-  const isImperial = useAppSelector((state) => state.tempUnit.isImperial);
+  if (!weatherDetails) return null;
 
-  if (isLoading) return <p>Loading...</p>;
+  const {
+    isImperial,
+    loading,
+    cityData: data,
+    currentDay,
+    next6Hours,
+  } = weatherDetails;
 
-  if (isError)
-    return <p>Something went wrong! Please try reentering the city name.</p>;
+  switch (loading) {
+    case "idle":
+      return <p>Enter a city name to get the weather details</p>;
+    case "pending":
+      return <p>Loading...</p>;
+    case "failed":
+      return <p>Something went wrong! Please try reentering the city name.</p>;
+    default:
+      break;
+  }
 
   if (!data?.days.length) return;
-
-  const currentTime = new Date().getHours();
-
-  const currentDay = data.days[0];
-  const listOfTimes = data.days.map((day) => day.hours).flat();
-  const nextHour = listOfTimes.findIndex(
-    (time) => parseInt(time.datetime.split(":")[0]) > currentTime
-  );
-
-  const next6Hours = listOfTimes.slice(nextHour, nextHour + 6);
 
   return (
     <div>

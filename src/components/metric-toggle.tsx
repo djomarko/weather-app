@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from "state/store";
-import { toggleUnit } from "state/temp-unit.slice";
+import { toggleUnit } from "state/weather.slice";
 
 const MeticToggle = () => {
-  const { isImperial } = useAppSelector((state) => state.tempUnit);
+  const { isImperial } = useAppSelector((state) => state.weather);
   const dispatch = useAppDispatch();
 
   return (

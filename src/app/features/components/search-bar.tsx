@@ -1,21 +1,22 @@
-interface SearchBarProps {
-  city: string;
-  onSubmit: (city: string) => void;
-}
+import { useAppDispatch, useAppSelector } from "state/store";
+import { fetchCityData } from "state/weather.slice";
 
-const SearchBar = ({ onSubmit }: SearchBarProps) => {
+const SearchBar = () => {
+  const { city } = useAppSelector((state) => state.weather);
+  const dispatch = useAppDispatch();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const city = new FormData(event.currentTarget).get("city");
-    if (!city) return;
-    onSubmit(city.toString());
+    const city = new FormData(event.currentTarget).get("city") || "";
+    dispatch(fetchCityData(city.toString()));
   };
 
   return (
     <form className="flex flex-row mb-8" onSubmit={handleSubmit}>
       <input
         placeholder="City"
+        defaultValue={city}
         name="city"
         type="text"
         className="input input-bordered w-full max-w-lg"

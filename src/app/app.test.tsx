@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { act, render, screen, within } from "@testing-library/react";
 import {
   afterAll,
   afterEach,
@@ -33,10 +33,11 @@ describe("App", () => {
       const inputElement: HTMLInputElement = screen.getByRole("textbox");
       const buttonElement = screen.getByRole("button");
 
-      inputElement.value = "Melbourne";
-      inputElement.blur();
-
-      buttonElement.click();
+      act(() => {
+        inputElement.value = "Melbourne";
+        inputElement.blur();
+        buttonElement.click();
+      });
 
       const weatherDetailsContainer = await screen.findByTestId(
         "weather-details-container"
@@ -66,11 +67,13 @@ describe("App", () => {
       const buttonElement = screen.getByRole("button");
       const toggleElement = screen.getByRole("checkbox");
 
-      inputElement.value = "Melbourne";
-      inputElement.blur();
+      act(() => {
+        inputElement.value = "Melbourne";
+        inputElement.blur();
 
-      buttonElement.click();
-      toggleElement.click();
+        buttonElement.click();
+        toggleElement.click();
+      });
 
       const weatherDetailsContainer = await screen.findByTestId(
         "weather-details-container"
@@ -93,14 +96,18 @@ describe("App", () => {
       const inputElement: HTMLInputElement = screen.getByRole("textbox");
       const buttonElement = screen.getByRole("button");
 
-      inputElement.value = "Melbourne";
-      inputElement.blur();
+      act(() => {
+        inputElement.value = "Melbourne";
+        inputElement.blur();
 
-      buttonElement.click();
+        buttonElement.click();
+      });
 
       const weatherForecatContainer = await screen.findByTestId(
         "weather-forecast-container"
       );
+
+      console.log("weatherForecatContainer", screen.debug());
 
       expect(weatherForecatContainer).toBeInTheDocument();
       expect(
