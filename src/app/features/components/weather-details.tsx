@@ -26,7 +26,7 @@ const WeatherDetails = () => {
       break;
   }
 
-  if (!data?.days.length) return;
+  if (!data || !currentDay) return;
 
   return (
     <div>

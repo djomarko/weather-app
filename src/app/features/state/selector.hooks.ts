@@ -5,7 +5,12 @@ export const selectWeatherDetails = createSelector(
   (state: RootState) => state.weather,
   (weather) => {
     const data = weather.cityData;
-    if (!data) return;
+    if (!data)
+      return {
+        ...weather,
+        currentDay: null,
+        next6Hours: [],
+      };
 
     const currentTime = new Date().getHours();
 
